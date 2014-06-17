@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.0'
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3', '1.3.9'
+# gem 'sqlite3', '1.3.9'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets
@@ -41,6 +41,10 @@ gem 'spring',        group: :development
 gem 'better_errors'
 gem 'jquery-ui-rails'
 gem 'jquery-timepicker-addon-rails'
+
+group :development do
+  gem 'sqlite3'
+end
 
 group :production do
   gem 'pg'
