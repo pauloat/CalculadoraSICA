@@ -41,3 +41,7 @@ gem 'spring',        group: :development
 gem 'better_errors'
 gem 'jquery-ui-rails'
 gem 'jquery-timepicker-addon-rails'
+
+group :production do
+  gem 'pg'
+end
