@@ -39,6 +39,5 @@ gem 'spring',        group: :development
 # gem 'debugger', group: [:development, :test]
 
 gem 'better_errors'
-gem 'calendar_date_select'
 gem 'jquery-ui-rails'
-gem 'jquery-timepicker-rails'
+gem 'jquery-timepicker-addon-rails'
