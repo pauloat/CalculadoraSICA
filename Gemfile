@@ -41,7 +41,7 @@ gem 'spring',        group: :development
 gem 'better_errors'
 gem 'jquery-ui-rails'
 gem 'jquery-timepicker-addon-rails'
-
+gem 'chronic'
 
 group :development do
   gem 'sqlite3'
