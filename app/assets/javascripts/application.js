@@ -13,7 +13,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require_tree .
 //= require jquery.ui.datepicker
 //= require jquery-ui-timepicker-addon
+//
+// Archivos de la aplicación en orden
 //= require calendario
