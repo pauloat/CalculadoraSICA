@@ -5,6 +5,7 @@ class Nocturna
   AM4 = Chronic.parse('4 am')
   PM9 = Chronic.parse('9 pm')
   JORNADA = 525
+  H12 = 43200
  
   attr_accessor :entradas, :salidas
  
@@ -62,6 +63,15 @@ class Nocturna
       tiempo_extra = tiempo_trabajado1 - JORNADA
     else
       tiempo_extra = 0
+    end
+
+    def enganche(salida1, entrada2)
+      descanso = entrada2 - salida1
+      if descanso < H12
+        horas_enganche = ((H12 - descanso).to_f) / 60 / 60
+      else
+        horas_enganche = 0
+      end
     end
  
   end
