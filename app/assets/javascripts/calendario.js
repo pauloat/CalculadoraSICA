@@ -1,3 +1,9 @@
+//
+//$(function() { ... }); es para retrazar la ejecucion del codigo hasta que la pagina este
+//cargada del todo.
+//
+
+
 $(function() {
 
   $('.calendario').datetimepicker({
