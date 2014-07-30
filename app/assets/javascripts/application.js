@@ -10,11 +10,6 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery
-//= require jquery_ujs
 //= require turbolinks
-//= require jquery.ui.datepicker
-//= require jquery-ui-timepicker-addon
 //
 // Archivos de la aplicación en orden
-//= require calendario
