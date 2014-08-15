@@ -1,10 +1,8 @@
 <tr>
   <td>
-    <input id=<%= "entrada#{n}" %>, type="datetime-local", class="calendario",
-  name=<%= "entrada#{n}" %> />
+    <%= tag :input, type: "datetime-local", name: "entrada#{n}", class: "calendario" %>
   </td> 
   <td>
-    <input id=<%= "salida#{n}" %>, type="datetime-local", class="calendario",
-    name=<%= "salida#{n}" %> />
+    <%= tag :input, type: "datetime-local", name: "salida#{n}", class: "calendario" %>
   </td>
 </tr>
