@@ -9,8 +9,8 @@
     <td>50%</td>
     <td>100%</td>
   </tr>
-  <% (1..7).each do |n| %>
-    <%= render partial: 'turno', locals: { n: n } %>
+  <% (1..7).each do %>
+    <%= render 'turno' %>
   <% end %>
 </div>
   <div>
