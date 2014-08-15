@@ -1,73 +1,24 @@
 <h1>Calculadora de horas extras Sica</h1>
 
-<div><table>
+<div>
+    <%= form_tag calculadora_path, method: :post do %>
+<table>
   <tr>
     <td>Citacion</td>
     <td>Salida</td>
     <td>50%</td>
     <td>100%</td>
   </tr>
-  <tr>
-    <td>
-    <%= form_tag calculadora_path, method: :post do %>
-      <input id="entrada1", type="datetime-local", class="calendario" />
-    </td>
-    <td>
-      <input id="salida1", type="datetime-local", class="calendario" />
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <input id="entrada2" type="datetime-local" class="calendario" />
-    </td>
-    <td>
-      <input id="salida2" type="datetime-local" class="calendario" />
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <input id="entrada3" type="datetime-local" class="calendario" />
-    </td>
-    <td>
-      <input id="salida3" type="datetime-local" class="calendario" />
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <input id="entrada4" type="datetime-local" class="calendario" />
-    </td>
-    <td>
-      <input id="salida4" type="datetime-local" class="calendario" />
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <input id="entrada5" type="datetime-local" class="calendario" />
-    </td>
-    <td>
-      <input id="salida5" type="datetime-local" class="calendario" />
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <input id="entrada6" type="datetime-local" class="calendario" />
-    </td>
-    <td>
-      <input id="salida6" type="datetime-local" class="calendario" />
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <input id="entrada7" type="datetime-local" class="calendario" />
-    </td>
-    <td>
-      <input id="salida7" type="datetime-local" class="calendario" />
-    </td>
-  </tr>
-</table></div>
+  <% (1..7).each do |n| %>
+    <%= render partial: 'turno', locals: { n: n } %>
+  <% end %>
+</div>
   <div>
-    <input type="submit" value="Enviar" />
+    <td>
+      <input type="submit" value="Enviar" />
+    </td>
   </div>
+</table>
 <% end %>
 <div>
 <h6>Desarrollado por <a href="https://github.com/pauloat">Paulo Toro</a>, con el apoyo del
