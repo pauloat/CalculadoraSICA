@@ -4,6 +4,7 @@ class HomeController < ApplicationController
   end
 
   def calculadora
+    binding.pry
   end
 
 end
