@@ -9,7 +9,7 @@
   </tr>
   <tr>
     <td>
-    <form >
+    <%= form_tag calculadora_path, method: :post do %>
       <input id="entrada1", type="datetime-local", class="calendario" />
     </td>
     <td>
@@ -68,7 +68,7 @@
   <div>
     <input type="submit" value="Enviar" />
   </div>
-</form>
+<% end %>
 <div>
 <h6>Desarrollado por <a href="https://github.com/pauloat">Paulo Toro</a>, con el apoyo del
 <a href="http://hackcoop.com.ar/">Hacklab de Barracas</a>. Copyleft 2014</h6>
