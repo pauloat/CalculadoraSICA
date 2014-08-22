@@ -1,7 +1,7 @@
 # horas nocturnas SICA
 require 'chronic'
  
-class Nocturna
+class Calculadora
   AM4 = Chronic.parse('4 am')
   PM9 = Chronic.parse('9 pm')
   JORNADA = 525

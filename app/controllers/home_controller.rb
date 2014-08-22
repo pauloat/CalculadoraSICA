@@ -4,7 +4,7 @@ class HomeController < ApplicationController
   end
 
   def calculadora
-    nocturna = Nocturna.new params[:entradas], params[:salidas]
+    calculadora = Calculadora.new params[:entradas], params[:salidas]
     binding.pry
   end
 
