@@ -10,10 +10,11 @@ class Calculadora
   attr_accessor :entradas, :salidas
  
   def initialize(entradas = [], salidas = [])
-    @entradas = entradas
-    @salidas = salidas
+    @entradas = entradas.collect { |e| e.to_time.to_i }
+    @salidas = salidas.collect { |s| s.to_time.to_i }
+    binding.pry
   end
- 
+
   def entrada_amanecer(entrada)
     hora_nocturna AM4 - entrada
   end
