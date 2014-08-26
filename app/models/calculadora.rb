@@ -13,13 +13,20 @@ class Calculadora
     @salidas = salidas.collect { |s| s.to_time }
   end
 
+  def am_4(entrada)
+    entrada.beginning_of_day + 4.hours
+  end
+
+  def pm_9(salida)
+    salida.beginning_of_day + 21.hours
+  end
 
   def entrada_amanecer(entrada)
-    hora_nocturna (entradas[n].beginning_of_day() + 4.hours) - entrada
+    hora_nocturna am_4(entradas[n]) - entrada
   end
  
   def salida_anochecer(salida)
-    hora_nocturna salida - (salidas[n].beginning_of_day() + 21.hours)
+    hora_nocturna salida - pm_9(salidas[n])
   end
  
   # tiempo es cantidad de segundos a convertir
@@ -29,29 +36,29 @@ class Calculadora
  
   def calcular(n)
     
-    if entradas[n] < (entradas[n].beginning_of_day() + 4.hours)
-      tiempo_amanecer = ((entradas[n].beginning_of_day() + 4.hours) - entradas[n])
+    if entradas[n] < am_4(entradas[n])
+      tiempo_amanecer = (am_4(entradas[n]) - entradas[n])
       tiempo_extra_entrada = entrada_amanecer(entradas[n]) - tiempo_amanecer
     else
       tiempo_extra_entrada = 0
     end
 
-    if salidas[n] > (salidas[n].beginning_of_day() + 21.hours)
-      tiempo_anochecer = (salidas[n] - (salidas[n].beginning_of_day() + 21.hours))
+    if salidas[n] > pm_9(salidas[n])
+      tiempo_anochecer = (salidas[n] - pm_9(salidas[n]))
       tiempo_extra_salida = salida_anochecer(salidas[n]) - tiempo_anochecer
     else
       tiempo_extra_salida = 0
     end
   
-    if entradas[n] >= (salidas[n].beginning_of_day() + 21.hours) && salidas[n] <= (entradas[n].beginning_of_day() + 4.hours)
+    if entradas[n] >= pm_9(salidas[n]) && salidas[n] <= am_4(entradas[n])
       tiempo_extra_entrada = 0
       tiempo_extra_salida = 0
       jornada_nocturna = (salidas[n] - entradas[n])
       tiempo_extra_nocturno = hora_nocturna(jornada_nocturna) - jornada_nocturna
-    elsif entradas[n] >= (salidas[n].beginning_of_day() + 21.hours) && salidas[n] > (entradas[n].beginning_of_day() + 4.hours)
+    elsif entradas[n] >= pm_9(salidas[n]) && salidas[n] > am_4(entradas[n])
       tiempo_extra_entrada = 0
       tiempo_extra_salida = 0
-      jornada_nocturna = ((entradas[n].beginning_of_day() + 4.hours) - entradas[n])
+      jornada_nocturna = (am_4(entradas[n]) - entradas[n])
       tiempo_extra_nocturno = hora_nocturna(jornada_nocturna) - jornada_nocturna
     else
       tiempo_extra_nocturno = 0
