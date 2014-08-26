@@ -67,7 +67,7 @@ class Calculadora
       tiempo_extra = 0
     end
 
-    return tiempo_extra / 60 / 60.0
+    return Time.at(tiempo_extra).utc.strftime("%H:%M")
 
 #    def enganche(salida1, entrada2)
 #      descanso = entrada2 - salida1
