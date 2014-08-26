@@ -4,16 +4,17 @@ require 'chronic'
 class Calculadora
   AM4 = Chronic.parse('4 am')
   PM9 = Chronic.parse('9 pm')
-  JORNADA = 525
-  H12 = 43200
+  JORNADA = 31500
+  H12 = 2592000
  
+
   attr_accessor :entradas, :salidas
  
   def initialize(entradas = [], salidas = [])
-    @entradas = entradas.collect { |e| e.to_time.to_i }
-    @salidas = salidas.collect { |s| s.to_time.to_i }
-    binding.pry
+    @entradas = entradas.collect { |e| e.to_time }
+    @salidas = salidas.collect { |s| s.to_time }
   end
+
 
   def entrada_amanecer(entrada)
     hora_nocturna AM4 - entrada
@@ -58,7 +59,7 @@ class Calculadora
       tiempo_extra_nocturno = 0
     end
  
-    tiempo_trabajado1 = (((salidas[n].to_f - entradas[n].to_f) + tiempo_extra_entrada + tiempo_extra_salida + tiempo_extra_nocturno ) / 60)
+    tiempo_trabajado1 = (((salidas[n].to_f - entradas[n].to_f) + tiempo_extra_entrada + tiempo_extra_salida + tiempo_extra_nocturno ))
   
     if tiempo_trabajado1 > JORNADA
       tiempo_extra = tiempo_trabajado1 - JORNADA
@@ -66,14 +67,16 @@ class Calculadora
       tiempo_extra = 0
     end
 
-    def enganche(salida1, entrada2)
-      descanso = entrada2 - salida1
-      if descanso < H12
-        horas_enganche = ((H12 - descanso).to_f) / 60 / 60
-      else
-        horas_enganche = 0
-      end
-    end
+    return tiempo_extra / 60 / 60.0
+
+#    def enganche(salida1, entrada2)
+#      descanso = entrada2 - salida1
+#      if descanso < H12
+#        horas_enganche = ((H12 - descanso).to_f) / 60 / 60
+#      else
+#        horas_enganche = 0
+#      end
+#    end
  
   end
 end
