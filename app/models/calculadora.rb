@@ -6,7 +6,7 @@ class Calculadora
   JORNADA = 31500
   
   # Public: Duracion en segundos de 12 hs.
-  H12 = 2592000
+  H12 = 43200
 
   attr_accessor :entradas, :salidas
  
@@ -24,19 +24,19 @@ class Calculadora
       tiempo_extra_entrada = 0
     end
 
-    if salidas[n] > pm_9(salidas[n])
-      tiempo_anochecer = (salidas[n] - pm_9(salidas[n]))
+    if salidas[n] > pm_9(entradas[n])
+      tiempo_anochecer = (salidas[n] - pm_9(entradas[n]))
       tiempo_extra_salida = salida_anochecer(salidas[n]) - tiempo_anochecer
     else
       tiempo_extra_salida = 0
     end
   
-    if entradas[n] >= pm_9(salidas[n]) && salidas[n] <= am_4(entradas[n])
+    if entradas[n] >= pm_9(entradas[n]) && salidas[n] <= am_4(entradas[n]) + 24.hours
       tiempo_extra_entrada = 0
       tiempo_extra_salida = 0
       jornada_nocturna = (salidas[n] - entradas[n])
       tiempo_extra_nocturno = hora_nocturna(jornada_nocturna) - jornada_nocturna
-    elsif entradas[n] >= pm_9(salidas[n]) && salidas[n] > am_4(entradas[n])
+    elsif entradas[n] >= pm_9(entradas[n]) && salidas[n] > am_4(entradas[n])
       tiempo_extra_entrada = 0
       tiempo_extra_salida = 0
       jornada_nocturna = (am_4(entradas[n]) - entradas[n])
@@ -56,14 +56,17 @@ class Calculadora
     return Time.at(tiempo_extra).utc.strftime("%H:%M")
   end
 
-#  def enganche(salida1, entrada2)
-#    descanso = entrada2 - salida1
-#    if descanso < H12
-#      horas_enganche = ((H12 - descanso).to_f) / 60 / 60
-#    else
-#      horas_enganche = 0
-#    end
-#  end
+  def enganche(n)
+    descanso = entradas[n+1] - salidas[n]
+    if descanso < H12
+      horas_enganche = H12 - descanso
+    else
+      horas_enganche = 0
+    end
+    
+    return Time.at(horas_enganche).utc.strftime("%H:%M")
+
+  end
 
   private
 
@@ -90,13 +93,13 @@ class Calculadora
   #   pm_9(('2014-08-26T08:00').to_time)
   #   # => '2014-08-26 21:00:00 -0300'
   # 
-  # Return un Time de las 4:00 del dia que se le dio
-  def pm_9(salida)
-    salida.beginning_of_day + 21.hours
+  # Return un Time de las 21:00 del dia que se le dio
+  def pm_9(entrada)
+    entrada.beginning_of_day + 21.hours
   end
 
   # Internal: Convierte cada 50 min de hora nocturna (desde las 21 hasta las 4)
-  # hora de 60 min.
+  # en horas de 60 min.
   #
   # tiempo - Cantidad en segundos a convertir
   #
@@ -120,8 +123,8 @@ class Calculadora
     hora_nocturna am_4(entrada) - entrada
   end
  
-  def salida_anochecer(salida)
-    hora_nocturna salida - pm_9(salida)
+  def salida_anochecer(entrada)
+    hora_nocturna entrada - pm_9(entrada)
   end
  
 end
