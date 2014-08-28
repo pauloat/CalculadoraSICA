@@ -118,7 +118,8 @@ class Calculadora
 
   # Internal: convierte a hora comun las horas nocturnas hasta las 4:00
   #
-  # entrada - El Datetime que queremos calcular cuanto tiempo se trabajo antes de las 4:00
+  # entrada - El Datetime que queremos calcular cuanto tiempo se trabajo antes 
+  # de las 4:00
   def entrada_amanecer(entrada)
     hora_nocturna am_4(entrada) - entrada
   end
