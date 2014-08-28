@@ -39,7 +39,6 @@ gem 'spring',        group: :development
 # gem 'debugger', group: [:development, :test]
 
 gem 'better_errors'
-gem 'chronic'
 
 group :development do
   gem 'sqlite3'
