@@ -84,9 +84,9 @@ class Calculadora
       tiempo_extra_nocturno = 0
     end
  
-   @@tiempo_trabajado = (((salidas[n].to_f - entradas[n].to_f) + tiempo_extra_entrada + tiempo_extra_salida + tiempo_extra_nocturno ))
+   tiempo_trabajado = (((salidas[n].to_f - entradas[n].to_f) + tiempo_extra_entrada + tiempo_extra_salida + tiempo_extra_nocturno ))
     
-   return @@tiempo_trabajado
+   return tiempo_trabajado
 
   end
 
