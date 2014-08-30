@@ -72,7 +72,7 @@ class Calculadora
     if entradas[n].sunday? && salidas[n].sunday?
       horas_domingo = tiempo_trabajado
     elsif entradas[n].sunday? && !salidas[n].sunday?
-      horas_domingo = tiempo_trabajado - ( salidas[n].beginning_of_day - salidas[n]
+      horas_domingo = tiempo_trabajado - ( salidas[n].beginning_of_day -      salidas[n] )
     elsif !entradas[n].sunday? && salidas[n].sunday?
       horas_domingo = tiempo_trabajado - ( entradas[n] - entradas[n].beginning_of_day )
     else
