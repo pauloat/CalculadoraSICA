@@ -45,10 +45,10 @@ class Calculadora
       tiempo_extra_nocturno = 0
     end
  
-    tiempo_trabajado1 = (((salidas[n].to_f - entradas[n].to_f) + tiempo_extra_entrada + tiempo_extra_salida + tiempo_extra_nocturno ))
+    tiempo_trabajado = (((salidas[n].to_f - entradas[n].to_f) + tiempo_extra_entrada + tiempo_extra_salida + tiempo_extra_nocturno ))
   
-    if tiempo_trabajado1 > JORNADA
-      tiempo_extra = tiempo_trabajado1 - JORNADA
+    if tiempo_trabajado > JORNADA
+      tiempo_extra = tiempo_trabajado - JORNADA
     else
       tiempo_extra = 0
     end
@@ -65,6 +65,21 @@ class Calculadora
     end
     
     return Time.at(horas_enganche).utc.strftime("%H:%M")
+
+  end
+
+  def domingo(n)
+    if entradas[n].sunday? && salidas[n].sunday?
+      horas_domingo = tiempo_trabajado
+    elsif entradas[n].sunday? && !salidas[n].sunday?
+      horas_domingo = tiempo_trabajado - ( salidas[n].beginning_of_day - salidas[n]
+    elsif !entradas[n].sunday? && salidas[n].sunday?
+      horas_domingo = tiempo_trabajado - ( entradas[n] - entradas[n].beginning_of_day )
+    else
+      horas_domingo = 0
+    end
+
+    return  Time.at(horas_domingo).utc.strftime("%H:%M")
 
   end
 
