@@ -15,7 +15,46 @@ class Calculadora
     @salidas = salidas.collect { |s| s.to_time }
   end
 
-  def calcular(n)
+  def extras(n)
+    if trabajo(n) > JORNADA
+      tiempo_extra = trabajo(n) - JORNADA
+    else
+      tiempo_extra = 0
+    end
+
+    return Time.at(tiempo_extra).utc.strftime("%H:%M")
+  end
+
+  def enganche(n)
+    descanso = entradas[n+1] - salidas[n]
+    if descanso < H12
+      horas_enganche = H12 - descanso
+    else
+      horas_enganche = 0
+    end
+    
+    return Time.at(horas_enganche).utc.strftime("%H:%M")
+
+  end
+
+  def domingo(n)
+    if entradas[n].sunday? && salidas[n].sunday?
+      horas_domingo = trabajo(n)
+    elsif entradas[n].sunday? && !salidas[n].sunday?
+      horas_domingo = trabajo(n) - ( salidas[n].beginning_of_day - salidas[n] )
+    elsif !entradas[n].sunday? && salidas[n].sunday?
+      horas_domingo = trabajo(n) - ( entradas[n] - entradas[n].beginning_of_day )
+    else
+      horas_domingo = 0
+    end
+
+    return  Time.at(horas_domingo).utc.strftime("%H:%M")
+
+  end
+
+  private
+
+  def trabajo(n)
     
     if entradas[n] < am_4(entradas[n])
       tiempo_amanecer = (am_4(entradas[n]) - entradas[n])
@@ -45,45 +84,11 @@ class Calculadora
       tiempo_extra_nocturno = 0
     end
  
-    tiempo_trabajado = (((salidas[n].to_f - entradas[n].to_f) + tiempo_extra_entrada + tiempo_extra_salida + tiempo_extra_nocturno ))
-  
-    if tiempo_trabajado > JORNADA
-      tiempo_extra = tiempo_trabajado - JORNADA
-    else
-      tiempo_extra = 0
-    end
-
-    return Time.at(tiempo_extra).utc.strftime("%H:%M")
-  end
-
-  def enganche(n)
-    descanso = entradas[n+1] - salidas[n]
-    if descanso < H12
-      horas_enganche = H12 - descanso
-    else
-      horas_enganche = 0
-    end
+   @@tiempo_trabajado = (((salidas[n].to_f - entradas[n].to_f) + tiempo_extra_entrada + tiempo_extra_salida + tiempo_extra_nocturno ))
     
-    return Time.at(horas_enganche).utc.strftime("%H:%M")
+   return @@tiempo_trabajado
 
   end
-
-  def domingo(n)
-    if entradas[n].sunday? && salidas[n].sunday?
-      horas_domingo = tiempo_trabajado
-    elsif entradas[n].sunday? && !salidas[n].sunday?
-      horas_domingo = tiempo_trabajado - ( salidas[n].beginning_of_day -      salidas[n] )
-    elsif !entradas[n].sunday? && salidas[n].sunday?
-      horas_domingo = tiempo_trabajado - ( entradas[n] - entradas[n].beginning_of_day )
-    else
-      horas_domingo = 0
-    end
-
-    return  Time.at(horas_domingo).utc.strftime("%H:%M")
-
-  end
-
-  private
 
   # Internal: Da las 4:00 del dia que se esta calculando
   #
