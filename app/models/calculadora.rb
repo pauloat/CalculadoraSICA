@@ -38,41 +38,61 @@ class Calculadora
     return Time.at(tiempo_extra).utc.strftime("%H:%M")
   end
 
-  # Public: Calcula la cantidad de horas enganche entre dos jornadas.
+  # Public: Suma la cantidad de horas de enganche con las de domingo para
+  #         regesar las horas al 100%.
+  #
+  # enganche(n) - Cantidad en segundos de tiempo trabajado antes que pasen 12
+  # horas del fin de la ultima jornada.
+  #
+  # domingo(n)  - Cantidad en segundos de tiempo trabajado durante dia domingo.
+  #
+  # Return String con la cantidad de horas y minutos trabajados al 100%.
+  #
+  def horas_100(n)
+    return Time.at(enganche(n) + domingo(n)).utc.strftime("%H:%M")
+
+  end
+
+  private
+
+  # Internal: Calcula la cantidad de horas enganche entre dos jornadas.
   #
   # descanso       - Tiempo en segundos entre la salida de un turno y la entrada
   #                  del siguiente.
   #
   # salidas[n]     - Horario en Time de la salida del turno.
   #
-  # entradas[n+1]  - Horario en Time de la entrada del siguiente turno.
+  # entradas[n + 1]  - Horario en Time de la entrada del siguiente turno.
   #
   # H12            - Constante en segundos de 12 horas.
   #
   # horas_enganche - Cantidad de tiempo en segundos del tiempo trabajado menor a
   #                  12 horas.
   #
-  # Return String con la cantidad de horas y minutos trabajados antes de que
+  # Return la cantidad de horas y minutos trabajados en segundos antes de que
   #   pasen 12 horas desde el fin del ultimo turno.
   def enganche(n)
-    descanso = entradas[n+1] - salidas[n]
+    descanso = entradas[n + 1] - salidas[n]
     if descanso < H12
       horas_enganche = H12 - descanso
     else
       horas_enganche = 0
     end
 
-    return Time.at(horas_enganche).utc.strftime("%H:%M")
+    return horas_enganche
 
   end
 
-  # Public: Calcula la cantidad de tiempo que se trabajo el domingo.
+  # Internal: Calcula la cantidad de tiempo que se trabajo el domingo.
   #
   # entradas[n]   - Horario en Time de la entrada del turno.
   #
   # salidas[n]    - Horario en Time de la salida del turno.
   #
   # horas_domingo - Cantidad de horas trabajadas durante el domingo.
+  #
+  # Return la cantidad de horas y minutos trabajados en segundos durante la
+  #   jornada de domingo.
   def domingo(n)
     if entradas[n].sunday? && salidas[n].sunday?
       horas_domingo = trabajo(n)
@@ -84,11 +104,9 @@ class Calculadora
       horas_domingo = 0
     end
 
-    return  Time.at(horas_domingo).utc.strftime("%H:%M")
+    return horas_domingo
 
   end
-
-  private
 
   # Internal: Calula el tiempo que duro el turno de trabajo.
   #
