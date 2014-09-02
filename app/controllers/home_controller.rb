@@ -5,7 +5,6 @@ class HomeController < ApplicationController
 
   def calculadora
     calculadora = Calculadora.new params[:entradas], params[:salidas]
-    binding.pry
   end
 
 end

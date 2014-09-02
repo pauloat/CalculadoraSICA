@@ -1,0 +1,25 @@
+<h1>Calculadora de horas extras Sica</h1>
+
+<div>
+    <%= form_tag calculadora_path, method: :post do %>
+<table>
+  <tr>
+    <td>Citacion</td>
+    <td>Salida</td>
+    <td>50%</td>
+    <td>100%</td>
+  </tr>
+  <% (1..7).each do %>
+    <%= render 'turno' %>
+  <% end %>
+</div>
+  <div>
+    <td>
+      <input type="submit" value="Enviar" />
+    </td>
+  </div>
+</table>
+<% end %>
+<div>
+<h6>Desarrollado por <a href="https://github.com/pauloat">Paulo Toro</a>, con el apoyo del
+<a href="http://hackcoop.com.ar/">Hacklab de Barracas</a>. Copyleft 2014</h6>
