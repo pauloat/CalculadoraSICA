@@ -1,5 +1,5 @@
 <h1>Calculadora de horas extras Sica</h1>
-
+  <% n = 0 %>
 <div>
     <%= form_tag calculadora_path, method: :post do %>
 <table>
@@ -9,8 +9,8 @@
     <td>50%</td>
     <td>100%</td>
   </tr>
-  <% (1..7).each do %>
-    <%= render 'turno' %>
+  <% (0..1).each do |t|  %>
+    <%= render partial: 'turno', locals: { n: t} %>
   <% end %>
 </div>
   <div>

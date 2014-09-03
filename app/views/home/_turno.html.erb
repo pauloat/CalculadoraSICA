@@ -1,8 +1,18 @@
 <tr>
   <td>
     <%= tag :input, type: "datetime-local", name: "entradas[]", class: "calendario" %>
-  </td> 
+  </td>
   <td>
     <%= tag :input, type: "datetime-local", name: "salidas[]", class: "calendario" %>
+  </td>
+  <td>
+    <% if @calculadora.present? %>
+      <%= @calculadora.extras(n) %>
+    <% end %>
+  </td>
+  <td>
+    <% if @calculadora.present? %>
+      <%= @calculadora.horas_100(n) %>
+    <% end %>
   </td>
 </tr>

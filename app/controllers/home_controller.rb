@@ -4,7 +4,8 @@ class HomeController < ApplicationController
   end
 
   def calculadora
-    calculadora = Calculadora.new params[:entradas], params[:salidas]
+    @calculadora = Calculadora.new params[:entradas], params[:salidas]
+    render "index"
   end
 
 end
