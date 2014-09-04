@@ -1,18 +1,27 @@
 <tr>
-  <td>
-    <%= tag :input, type: "datetime-local", name: "entradas[]", class: "calendario" %>
-  </td>
-  <td>
-    <%= tag :input, type: "datetime-local", name: "salidas[]", class: "calendario" %>
-  </td>
-  <td>
-    <% if @calculadora.present? %>
+  <% if @calculadora.present? %>
+    <td>
+      <%= tag :input, type: "datetime-local", name: "entradas[]", class:
+              "calendario", value: params[:entradas][n] %>
+    </td>
+    <td>
+      <%= tag :input, type: "datetime-local", name: "salidas[]", class:
+              "calendario", value: params[:salidas][n] %>
+    </td>
+    <td>
       <%= @calculadora.extras(n) %>
-    <% end %>
-  </td>
-  <td>
-    <% if @calculadora.present? %>
+    </td>
+    <td>
       <%= @calculadora.horas_100(n) %>
-    <% end %>
-  </td>
+    </td>
+  <% else %>
+    <td>
+      <%= tag :input, type: "datetime-local", name: "entradas[]", class:
+              "calendario" %>
+    </td>
+    <td>
+      <%= tag :input, type: "datetime-local", name: "salidas[]", class:
+              "calendario" %>
+    </td>
+  <% end %>
 </tr>

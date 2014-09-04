@@ -154,10 +154,10 @@ class Calculadora
   # Return la cantidad de horas y minutos trabajados en segundos antes de que
   #   pasen 12 horas desde el fin del ultimo turno.
   def enganche(n)
-    if entradas[n + 1].nil? || salidas[n].nil?
+    if entradas[n].nil? || salidas[n - 1].nil?
       descanso = H12
     else
-      descanso = entradas[n + 1] - salidas[n]
+      descanso = entradas[n] - salidas[n - 1]
     end
 
     if descanso < H12
