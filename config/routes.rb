@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   root 'home#index'
 
   post 'calculadora' => 'home#calculadora'
+  get  'calculadora' => 'home#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

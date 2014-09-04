@@ -154,20 +154,23 @@ class Calculadora
   # Return la cantidad de horas y minutos trabajados en segundos antes de que
   #   pasen 12 horas desde el fin del ultimo turno.
   def enganche(n)
-    if entradas[n].nil? || salidas[n - 1].nil?
-      descanso = H12
-    else
-      descanso = entradas[n] - salidas[n - 1]
-    end
-
-    if descanso < H12
-      horas_enganche = H12 - descanso
-    else
+    if n == 0
       horas_enganche = 0
+    else
+      if entradas[n].nil? || salidas[n - 1].nil?
+        descanso = H12
+      else
+        descanso = entradas[n] - salidas[n - 1]
+      end
+
+      if descanso < H12
+        horas_enganche = H12 - descanso
+      else
+        horas_enganche = 0
+      end
+
+      return horas_enganche
     end
-
-    return horas_enganche
-
   end
 
   # Internal: Calcula la cantidad de tiempo que se trabajo el domingo.
