@@ -13,3 +13,5 @@
 //= require turbolinks
 //
 // Archivos de la aplicación en orden
+//= require jquery
+//= require bootstrap-sprockets
