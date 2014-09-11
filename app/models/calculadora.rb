@@ -54,7 +54,7 @@ class Calculadora
     if entradas[n].nil? || salidas[n].nil?
       tiempo_extra_100 = 0
     else
-      tiempo_extra_100 = enganche(n) + domingo(n)
+      tiempo_extra_100 = enganche(n) + domingo(n) + sabado(n)
     end
 
     return Time.at(tiempo_extra_100).utc.strftime("%H:%M")
@@ -195,6 +195,29 @@ class Calculadora
     end
 
     return horas_domingo
+
+  # Internal: Calcula la cantidad de tiempo que se trabajo el sabado.
+  #
+  # entradas[n]   - Horario en Time de la entrada del turno.
+  #
+  # salidas[n]    - Horario en Time de la salida del turno.
+  #
+  # horas_sabado - Cantidad de horas trabajadas durante el sabado.
+  #
+  # Return la cantidad de horas y minutos trabajados en segundos durante la
+  #   jornada de sabado.
+  def sabado(n)
+    if entradas[n].saturday? && salidas[n].saturday?
+      horas_sabado = trabajo(n)
+    elsif entradas[n].saturday? && !salidas[n].saturday?
+      horas_sabado = trabajo(n) - (salidas[n].beginning_of_day - salidas[n])
+    elsif !entradas[n].saturday? && salidas[n].saturday?
+      horas_saturday = trabajo(n) - (entradas[n] - entradas[n].beginning_of_day)
+    else
+      horas_sabado = 0
+    end
+
+    return horas_sabado
 
   end
 
