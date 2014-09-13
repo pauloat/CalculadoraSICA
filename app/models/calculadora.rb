@@ -40,13 +40,15 @@ class Calculadora
     return Time.at(tiempo_extra).utc.strftime("%H:%M")
   end
 
-  # Public: Suma la cantidad de horas de enganche con las de domingo para
-  #         regesar las horas al 100%.
+  # Public: Suma la cantidad de horas de enganche con las de sabado y domingo
+  #         para regesar las horas al 100%.
   #
   # enganche(n) - Cantidad en segundos de tiempo trabajado antes que pasen 12
-  # horas del fin de la ultima jornada.
+  #               horas del fin de la ultima jornada.
   #
   # domingo(n)  - Cantidad en segundos de tiempo trabajado durante dia domingo.
+  #
+  # sabado(n)  - Cantidad en segundos de tiempo trabajado durante dia sabado.
   #
   # Return String con la cantidad de horas y minutos trabajados al 100%.
   #
@@ -142,9 +144,9 @@ class Calculadora
   # descanso       - Tiempo en segundos entre la salida de un turno y la entrada
   #                  del siguiente.
   #
-  # salidas[n]     - Horario en Time de la salida del turno.
+  # salidas[n - 1]     - Horario en Time de la salida del turno anterior.
   #
-  # entradas[n + 1]  - Horario en Time de la entrada del siguiente turno.
+  # entradas[n]  - Horario en Time de la entrada del turno.
   #
   # H12            - Constante en segundos de 12 horas.
   #
