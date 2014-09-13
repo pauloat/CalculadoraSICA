@@ -40,13 +40,15 @@ class Calculadora
     return Time.at(tiempo_extra).utc.strftime("%H:%M")
   end
 
-  # Public: Suma la cantidad de horas de enganche con las de domingo para
-  #         regesar las horas al 100%.
+  # Public: Suma la cantidad de horas de enganche con las de sabado y domingo
+  #         para regesar las horas al 100%.
   #
   # enganche(n) - Cantidad en segundos de tiempo trabajado antes que pasen 12
-  # horas del fin de la ultima jornada.
+  #               horas del fin de la ultima jornada.
   #
   # domingo(n)  - Cantidad en segundos de tiempo trabajado durante dia domingo.
+  #
+  # sabado(n)  - Cantidad en segundos de tiempo trabajado durante dia sabado.
   #
   # Return String con la cantidad de horas y minutos trabajados al 100%.
   #
@@ -54,7 +56,7 @@ class Calculadora
     if entradas[n].nil? || salidas[n].nil?
       tiempo_extra_100 = 0
     else
-      tiempo_extra_100 = enganche(n) + domingo(n)
+      tiempo_extra_100 = enganche(n) + domingo(n) + sabado(n)
     end
 
     return Time.at(tiempo_extra_100).utc.strftime("%H:%M")
@@ -142,9 +144,9 @@ class Calculadora
   # descanso       - Tiempo en segundos entre la salida de un turno y la entrada
   #                  del siguiente.
   #
-  # salidas[n]     - Horario en Time de la salida del turno.
+  # salidas[n - 1]     - Horario en Time de la salida del turno anterior.
   #
-  # entradas[n + 1]  - Horario en Time de la entrada del siguiente turno.
+  # entradas[n]  - Horario en Time de la entrada del turno.
   #
   # H12            - Constante en segundos de 12 horas.
   #
@@ -195,6 +197,29 @@ class Calculadora
     end
 
     return horas_domingo
+
+  # Internal: Calcula la cantidad de tiempo que se trabajo el sabado.
+  #
+  # entradas[n]   - Horario en Time de la entrada del turno.
+  #
+  # salidas[n]    - Horario en Time de la salida del turno.
+  #
+  # horas_sabado - Cantidad de horas trabajadas durante el sabado.
+  #
+  # Return la cantidad de horas y minutos trabajados en segundos durante la
+  #   jornada de sabado.
+  def sabado(n)
+    if entradas[n].saturday? && salidas[n].saturday?
+      horas_sabado = trabajo(n)
+    elsif entradas[n].saturday? && !salidas[n].saturday?
+      horas_sabado = trabajo(n) - (salidas[n].beginning_of_day - salidas[n])
+    elsif !entradas[n].saturday? && salidas[n].saturday?
+      horas_saturday = trabajo(n) - (entradas[n] - entradas[n].beginning_of_day)
+    else
+      horas_sabado = 0
+    end
+
+    return horas_sabado
 
   end
 
