@@ -198,6 +198,8 @@ class Calculadora
 
     return horas_domingo
 
+  end
+
   # Internal: Calcula la cantidad de tiempo que se trabajo el sabado.
   #
   # entradas[n]   - Horario en Time de la entrada del turno.
